@@ -1,24 +1,23 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Home Page</ion-title>
+        <ion-title>Dogs for adoption</ion-title>
+        <ion-buttons end>
+            <button ion-button outline padding color="dark" (click)="createDog()">
+                Add
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-grid>
-        <ion-row align-items-center>
-            <ion-col ><h5>Dogs for adoption: </h5></ion-col>
-            <ion-col>
-                <ion-buttons end>
-                    <button ion-button outline (click)="closeModal()">
-                        Add
-                    </button>
-                </ion-buttons>
+    <!-- Add refresher-->
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
 
-            </ion-col>
-        </ion-row>
-    </ion-grid>
     <ion-list>
+        <!-- List all dogs -->
         <ion-item-sliding *ngFor="let dog of dogList">
             <ion-item (click)="showDog(dog.id)">
                 <ion-avatar item-start>
@@ -27,25 +26,13 @@
                 {{ dog.name }}
             </ion-item>
 
+            <!-- Sliding options, left <- right -->
             <ion-item-options side="right">
-                <button ion-button (click)="updateDog(dog)">Update</button>
-                <button ion-button color="secondary" (click)="deleteDog(dog.id)">Delete</button>
+                <button ion-button color="updateSlide" (click)="updateDog(dog)">Update</button>
+                <button ion-button color="deleteSlide" (click)="deleteDog(dog.id)">Delete</button>
             </ion-item-options>
         </ion-item-sliding>
 
     </ion-list>
+
 </ion-content>
-
-<!--<ion-content padding>-->
-<!--<ion-list>-->
-<!--<ion-item>-->
-<!--<ion-thumbnail item-start>-->
-<!--<img src="img/thumbnail-totoro.png">-->
-<!--</ion-thumbnail>-->
-<!--<h2>My Neighbor Totoro</h2>-->
-<!--<p>Hayao Miyazaki • 1988</p>-->
-<!--<button ion-button clear item-end>View</button>-->
-<!--</ion-item>-->
-<!--</ion-list>-->
-
-<!--</ion-content>-->
