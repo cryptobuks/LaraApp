@@ -1,19 +1,51 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Home Page</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-thumbnail item-start>
-        <img src="img/thumbnail-totoro.png">
-      </ion-thumbnail>
-      <h2>My Neighbor Totoro</h2>
-      <p>Hayao Miyazaki • 1988</p>
-      <button ion-button clear item-end>View</button>
-    </ion-item>
-  </ion-list>
+    <ion-grid>
+        <ion-row align-items-center>
+            <ion-col ><h5>Dogs for adoption: </h5></ion-col>
+            <ion-col>
+                <ion-buttons end>
+                    <button ion-button outline (click)="closeModal()">
+                        Add
+                    </button>
+                </ion-buttons>
 
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-list>
+        <ion-item-sliding *ngFor="let dog of dogList">
+            <ion-item (click)="showDog(dog.id)">
+                <ion-avatar item-start>
+                    <img src="assets/imgs/dog.jpg">
+                </ion-avatar>
+                {{ dog.name }}
+            </ion-item>
+
+            <ion-item-options side="right">
+                <button ion-button (click)="updateDog(dog)">Update</button>
+                <button ion-button color="secondary" (click)="deleteDog(dog.id)">Delete</button>
+            </ion-item-options>
+        </ion-item-sliding>
+
+    </ion-list>
 </ion-content>
+
+<!--<ion-content padding>-->
+<!--<ion-list>-->
+<!--<ion-item>-->
+<!--<ion-thumbnail item-start>-->
+<!--<img src="img/thumbnail-totoro.png">-->
+<!--</ion-thumbnail>-->
+<!--<h2>My Neighbor Totoro</h2>-->
+<!--<p>Hayao Miyazaki • 1988</p>-->
+<!--<button ion-button clear item-end>View</button>-->
+<!--</ion-item>-->
+<!--</ion-list>-->
+
+<!--</ion-content>-->

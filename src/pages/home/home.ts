@@ -1,14 +1,75 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
+import {RemoteDogServiceProvider} from "../../providers/remote-dog-service/remote-dog-service";
+import {ModalController} from 'ionic-angular';
+import {TabsPage} from "../tabs/tabs";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    selector: 'page-home',
+    templateUrl: 'home.html'
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
 
-  }
+    constructor(public navCtrl: NavController,
+                public dogProvider: RemoteDogServiceProvider,
+                public modal: ModalController) {
+
+        // Call function to invoke Provider
+        this.getDogs();
+    }
+
+    dogList: Array<any>;
+
+    // Subscribe to provider's function and get results
+    // Note: usually data received is this.dogList = data.results;
+    getDogs() {
+        this.dogProvider.getDogs().subscribe(
+            data => {
+                this.dogList = data;
+                // console.log(this.dogList);
+            },
+            err => {
+                console.log(err);
+            },
+            () => console.log('Dog Listing Complete')
+        );
+    }
+
+    showDog(id) {
+        // let dog : any;
+        this.dogProvider.showDog(id).subscribe(
+            (data) => {
+                // this.navCtrl.push('ModalPage', { dog: data });
+                const dogModal = this.modal.create('ModalPage', {dog: data});
+                dogModal.present();
+            },
+            error => {
+                console.log(error);
+            },
+            () => console.log('Dog showing complete.')
+        );
+    }
+
+    updateDog(data){
+        const dogModal = this.modal.create('UpdateModalPage', {dog: data});
+        dogModal.present();
+    }
+
+    deleteDog(id){
+        this.dogProvider.deleteDog(id).subscribe(
+            (data) => {
+                this.navCtrl.setRoot(TabsPage);
+                console.log(data);
+            },
+        error => {
+            console.log(error);
+        },
+        () => {
+            // this.navCtrl.setRoot(TabsPage);
+            console.log("Dog deletion complete.")
+            }
+        )
+    }
 
 }
