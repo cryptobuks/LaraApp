@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, ToastController} from 'ionic-angular';
 import {RemoteDogServiceProvider} from "../../providers/remote-dog-service/remote-dog-service";
 import {ModalController} from 'ionic-angular';
 import {TabsPage} from "../tabs/tabs";
@@ -10,7 +10,7 @@ import {TabsPage} from "../tabs/tabs";
 })
 export class HomePage {
 
-    doRefresh(refresher){
+    doRefresh(refresher) {
         console.log('Begin async operation ', refresher);
 
         setTimeout(() => {
@@ -19,10 +19,10 @@ export class HomePage {
         }, 2000)
     }
 
-
     constructor(public navCtrl: NavController,
                 public dogProvider: RemoteDogServiceProvider,
-                public modal: ModalController) {
+                public modal: ModalController,
+                public toastCtrl: ToastController) {
 
         // Call function to invoke Provider
         this.getDogs();
@@ -36,14 +36,26 @@ export class HomePage {
         this.dogProvider.getDogs().subscribe(
             data => {
                 this.dogList = data;
-                // console.log(this.dogList);
+                // console.log(data);
             },
             err => {
+                this.presentToast();
+
                 console.log(err);
             },
             () => console.log('Dog Listing Complete')
         );
     }
+
+    presentToast(){
+        let toast = this.toastCtrl.create({
+            message: 'Error in getting the dogs',
+            duration: 3000
+        });
+        toast.present();
+
+    }
+
 
     showDog(id) {
         // let dog : any;
@@ -60,28 +72,28 @@ export class HomePage {
         );
     }
 
-    updateDog(data){
+    updateDog(data) {
         const dogModal = this.modal.create('UpdateModalPage', {dog: data});
         dogModal.present();
     }
 
-    deleteDog(id){
+    deleteDog(id) {
         this.dogProvider.deleteDog(id).subscribe(
             (data) => {
                 this.navCtrl.setRoot(TabsPage);
                 console.log(data);
             },
-        error => {
-            console.log(error);
-        },
-        () => {
-            // this.navCtrl.setRoot(TabsPage);
-            console.log("Dog deletion complete.")
+            error => {
+                console.log(error);
+            },
+            () => {
+                // this.navCtrl.setRoot(TabsPage);
+                console.log("Dog deletion complete.")
             }
         )
     }
 
-    createDog(){
+    createDog() {
         const dogModal = this.modal.create('CreateModalPage');
         dogModal.present();
     }

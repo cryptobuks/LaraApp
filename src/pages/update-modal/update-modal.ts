@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {App, Events, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {FormControl, FormGroup} from "@angular/forms";
 import {RemoteDogServiceProvider} from "../../providers/remote-dog-service/remote-dog-service";
 import {TabsPage} from "../tabs/tabs";
@@ -58,8 +58,8 @@ export class UpdateModalPage {
 
     /* Close modal when < button in header is clicked. */
     closeModal() {
-        this.view.dismiss().catch(() => console.log('view was not dismissed'));
         this.app.getRootNav().setRoot(TabsPage);
+        this.view.dismiss().catch(() => console.log('view was not dismissed'));
     }
 
 }
