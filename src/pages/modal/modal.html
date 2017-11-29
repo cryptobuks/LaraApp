@@ -7,14 +7,16 @@
 <ion-header>
 
     <ion-navbar>
+        <!-- Back button to Home -->
+        <ion-buttons left>
+            <button ion-button icon-only (click)="closeModal()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+
         <ion-title>
             {{ dog.name }}'s Page
         </ion-title>
-        <ion-buttons end>
-            <button ion-button outline (click)="closeModal()">
-                Close
-            </button>
-        </ion-buttons>
     </ion-navbar>
 
 </ion-header>

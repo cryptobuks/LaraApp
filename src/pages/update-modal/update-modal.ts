@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, Events, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {FormControl, FormGroup} from "@angular/forms";
 import {RemoteDogServiceProvider} from "../../providers/remote-dog-service/remote-dog-service";
 import {TabsPage} from "../tabs/tabs";
@@ -21,8 +21,11 @@ export class UpdateModalPage {
     dog: any;
     updateForm: FormGroup;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams,
-                public dogProvider: RemoteDogServiceProvider, public events: Events) {
+    constructor(public app: App,
+                public navCtrl: NavController,
+                public navParams: NavParams,
+                public dogProvider: RemoteDogServiceProvider,
+                private view: ViewController) {
 
 
         this.dog = this.navParams.get('dog');
@@ -51,6 +54,12 @@ export class UpdateModalPage {
                 console.log('Dog Update Complete.')
             }
         );
-
     }
+
+    /* Close modal when < button in header is clicked. */
+    closeModal() {
+        this.view.dismiss().catch(() => console.log('view was not dismissed'));
+        this.app.getRootNav().setRoot(TabsPage);
+    }
+
 }

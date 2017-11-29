@@ -1,31 +1,11 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            Create a dog
+            About page
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <div>
-        <form name="createForm" [formGroup]="createForm">
-            <ion-list>
-                <ion-item>
-                    <ion-input type="text" placeholder="Name" required
-                    formControlName="name" [(ngModel)]="data.name"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-input type="text" placeholder="Breed"
-                               formControlName="breed" [(ngModel)]="data.breed"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-input type="number" placeholder="Age"
-                               formControlName="age" [(ngModel)]="data.age"></ion-input>
-                </ion-item>
 
-            </ion-list>
-            <button ion-button type="submit" name="submit"
-            [disabled]="!createForm.valid" (click)="createDog()">Create!</button>
-        </form>
-    </div>
 </ion-content>

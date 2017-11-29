@@ -6,36 +6,44 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>UpdateModal</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <!-- Back button to Home -->
+        <ion-buttons left>
+            <button ion-button icon-only (click)="closeModal()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-title>Update {{ dog.name }}'s info</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <div>
-    <form name="updateForm" [formGroup]="updateForm">
-      <ion-list>
-        <ion-item>
-          <ion-label fixed>Name: </ion-label>
-          <ion-input type="text" value="{{ dog.name }}" required
-                     formControlName="name" [(ngModel)]="dog.name"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label fixed>Breed: </ion-label>
-          <ion-input type="text" value="{{ dog.breed }}"
-                     formControlName="breed" [(ngModel)]="dog.breed"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label fixed>Age: </ion-label>
-          <ion-input type="number" value="{{ dog.age }}"
-                     formControlName="age" [(ngModel)]="dog.age"></ion-input>
-        </ion-item>
+    <div>
+        <form name="updateForm" [formGroup]="updateForm">
+            <ion-list>
+                <ion-item>
+                    <ion-label fixed>Name:</ion-label>
+                    <ion-input type="text" value="{{ dog.name }}" required
+                               formControlName="name" [(ngModel)]="dog.name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label fixed>Breed:</ion-label>
+                    <ion-input type="text" value="{{ dog.breed }}"
+                               formControlName="breed" [(ngModel)]="dog.breed"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label fixed>Age:</ion-label>
+                    <ion-input type="number" value="{{ dog.age }}"
+                               formControlName="age" [(ngModel)]="dog.age"></ion-input>
+                </ion-item>
 
-      </ion-list>
-      <button ion-button type="submit" name="submit"
-              [disabled]="!updateForm.valid" (click)="updateDog()">Update</button>
-    </form>
-  </div>
+            </ion-list>
+            <button ion-button type="submit" name="submit"
+                    [disabled]="!updateForm.valid" (click)="updateDog()">Update
+            </button>
+        </form>
+    </div>
 </ion-content>

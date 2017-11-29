@@ -10,6 +10,15 @@ import {TabsPage} from "../tabs/tabs";
 })
 export class HomePage {
 
+    doRefresh(refresher){
+        console.log('Begin async operation ', refresher);
+
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            refresher.complete();
+        }, 2000)
+    }
+
 
     constructor(public navCtrl: NavController,
                 public dogProvider: RemoteDogServiceProvider,
@@ -71,5 +80,11 @@ export class HomePage {
             }
         )
     }
+
+    createDog(){
+        const dogModal = this.modal.create('CreateModalPage');
+        dogModal.present();
+    }
+
 
 }
